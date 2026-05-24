@@ -1,0 +1,647 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <title>石欢欢 - 个人简历</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
+  <style>
+    @page {
+      size: A4;
+      margin: 0;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-print-color-adjust: exact !important;
+      print-color-adjust: exact !important;
+    }
+
+    body {
+      font-family: 'Noto Sans SC', "Helvetica Neue", Helvetica, Arial, "PingFang SC", "Microsoft YaHei", sans-serif;
+      background-color: #f3f4f6;
+      color: #333333;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 40px 0;
+    }
+
+    /* A4 Container */
+    .page {
+      width: 210mm;
+      height: 297mm;
+      background-color: #ffffff;
+      display: flex;
+      flex-direction: column;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+      overflow: hidden;
+      position: relative;
+    }
+
+    /* Cyan Top Header */
+    .header-block {
+      height: 90px;
+      background-color: #2bbec6;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      color: #ffffff;
+      position: relative;
+      z-index: 1;
+    }
+
+    .header-name {
+      font-size: 26px;
+      font-weight: 700;
+      letter-spacing: 4px;
+      margin-bottom: 4px;
+    }
+
+    .header-intent {
+      font-size: 12px;
+      color: rgba(255, 255, 255, 0.9);
+      font-weight: 300;
+      letter-spacing: 0.5px;
+    }
+
+    /* Main Container below Header */
+    .content-block {
+      display: flex;
+      flex-direction: row;
+      flex: 1;
+      width: 100%;
+      height: calc(297mm - 90px);
+    }
+
+    /* Left Sidebar: 33% width */
+    .sidebar {
+      width: 33%;
+      height: 100%;
+      background-color: #fcfdfe;
+      border-right: 1px solid #eef2f6;
+      padding: 65px 15px 15px 20px;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+    }
+
+    /* Circular avatar container overlapping cyan header */
+    .avatar-wrap {
+      position: absolute;
+      top: -45px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 95px;
+      height: 95px;
+      border-radius: 50%;
+      border: 4px solid #ffffff;
+      box-shadow: 0 3px 10px rgba(0, 0, 0, 0.12);
+      background-color: #ffffff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 2;
+      overflow: hidden;
+    }
+
+    .avatar-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    /* Sidebar Title Style */
+    .sidebar-title {
+      font-size: 14px;
+      font-weight: 700;
+      color: #333333;
+      letter-spacing: 1.5px;
+      margin-top: 15px;
+      margin-bottom: 10px;
+      padding-bottom: 4px;
+      border-bottom: 2px solid #333333;
+      display: inline-block;
+      width: fit-content;
+    }
+
+    /* Basic Info List */
+    .info-list {
+      display: flex;
+      flex-direction: column;
+      gap: 7px;
+    }
+
+    .info-item {
+      display: flex;
+      align-items: center;
+      font-size: 11px;
+      color: #555555;
+    }
+
+    .info-icon {
+      width: 13px;
+      height: 13px;
+      fill: #f3c258;
+      margin-right: 8px;
+      flex-shrink: 0;
+    }
+
+    .info-label {
+      font-weight: bold;
+      color: #444444;
+    }
+
+    .info-value {
+      color: #666666;
+    }
+
+    /* Venn Bubble Diagram */
+    .venn-container {
+      position: relative;
+      width: 100%;
+      height: 145px;
+      margin-top: 10px;
+    }
+
+    .bubble {
+      position: absolute;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      color: #ffffff;
+      font-size: 10px;
+      font-weight: 700;
+      line-height: 1.2;
+      box-shadow: 0 3px 6px rgba(0, 0, 0, 0.06);
+    }
+
+    .bubble-center {
+      width: 66px;
+      height: 66px;
+      background-color: rgba(120, 130, 140, 0.92);
+      top: 38px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 5;
+      font-size: 11px;
+    }
+
+    .bubble-tl {
+      width: 58px;
+      height: 58px;
+      background-color: rgba(245, 186, 49, 0.9);
+      top: 10px;
+      left: 12px;
+      z-index: 4;
+    }
+
+    .bubble-tr {
+      width: 58px;
+      height: 58px;
+      background-color: rgba(44, 177, 225, 0.9);
+      top: 10px;
+      right: 12px;
+      z-index: 4;
+    }
+
+    .bubble-bl {
+      width: 58px;
+      height: 58px;
+      background-color: rgba(79, 195, 247, 0.9);
+      bottom: 10px;
+      left: 15px;
+      z-index: 4;
+    }
+
+    .bubble-br {
+      width: 58px;
+      height: 58px;
+      background-color: rgba(236, 64, 122, 0.9);
+      bottom: 10px;
+      right: 15px;
+      z-index: 4;
+    }
+
+    /* Certifications & Hobbies */
+    .sidebar-list {
+      list-style: none;
+      padding-left: 0;
+    }
+
+    .sidebar-list-item {
+      font-size: 11px;
+      color: #555555;
+      line-height: 1.6;
+      position: relative;
+      padding-left: 12px;
+      margin-bottom: 4px;
+    }
+
+    .sidebar-list-item::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 6px;
+      width: 4px;
+      height: 4px;
+      background-color: #f3c258;
+      border-radius: 50%;
+    }
+
+    .hobbies-text {
+      font-size: 11px;
+      color: #555555;
+      line-height: 1.5;
+    }
+
+    /* Right Main Content Column: 67% width */
+    .main-content {
+      width: 67%;
+      height: 100%;
+      padding: 20px 25px 20px 25px;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+
+    /* Section Header Style with Yellow Leaf/Circle and underline */
+    .section-header {
+      display: flex;
+      align-items: center;
+      position: relative;
+      margin-top: 12px;
+      margin-bottom: 10px;
+      padding-bottom: 4px;
+      border-bottom: 1px solid #e2e8f0;
+    }
+
+    .section-header::after {
+      content: "";
+      position: absolute;
+      bottom: -1px;
+      left: 0;
+      width: 75px;
+      height: 2px;
+      background-color: #333333;
+    }
+
+    .section-bullet {
+      width: 11px;
+      height: 11px;
+      background-color: #f3c258;
+      border-radius: 50%;
+      margin-right: 8px;
+      flex-shrink: 0;
+    }
+
+    .section-title {
+      font-size: 14px;
+      font-weight: 700;
+      color: #333333;
+      letter-spacing: 1px;
+    }
+
+    /* Education Block */
+    .edu-block {
+      margin-bottom: 6px;
+    }
+
+    .edu-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      font-size: 12px;
+      font-weight: bold;
+      color: #333333;
+      margin-bottom: 2px;
+    }
+
+    .edu-courses {
+      font-size: 11px;
+      color: #666666;
+      line-height: 1.5;
+    }
+
+    /* Job block style */
+    .job-block {
+      margin-bottom: 8px;
+    }
+
+    .job-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      font-size: 12px;
+      font-weight: 700;
+      color: #333333;
+      margin-bottom: 2px;
+    }
+
+    .job-company {
+      font-size: 11px;
+      color: #2bbec6;
+      font-weight: 700;
+      margin-bottom: 3px;
+    }
+
+    .job-bullets {
+      list-style: none;
+      padding-left: 2px;
+    }
+
+    .job-bullets li {
+      font-size: 10.5px;
+      color: #555555;
+      line-height: 1.45;
+      margin-bottom: 2px;
+      position: relative;
+      padding-left: 10px;
+      text-align: justify;
+    }
+
+    .job-bullets li::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 5px;
+      width: 3.5px;
+      height: 3.5px;
+      background-color: #f3c258;
+      border-radius: 50%;
+    }
+
+    .job-bullets li strong {
+      color: #222222;
+      font-weight: 700;
+    }
+
+    /* Project block style */
+    .project-block {
+      margin-bottom: 6px;
+    }
+
+    .project-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      font-size: 11.5px;
+      font-weight: 700;
+      color: #333333;
+      margin-bottom: 2px;
+    }
+
+    .project-desc {
+      font-size: 10.5px;
+      color: #555555;
+      line-height: 1.45;
+      text-align: justify;
+    }
+
+    .project-desc strong {
+      color: #222222;
+      font-weight: 700;
+    }
+
+    /* Self-Evaluation */
+    .eval-text {
+      font-size: 10.5px;
+      color: #555555;
+      line-height: 1.5;
+      text-align: justify;
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+    }
+
+    .eval-para {
+      position: relative;
+      padding-left: 10px;
+    }
+
+    .eval-para::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 6px;
+      width: 3.5px;
+      height: 3.5px;
+      background-color: #f3c258;
+      border-radius: 50%;
+    }
+
+    /* PDF Printing Adjustments */
+    @media print {
+      body {
+        background-color: #ffffff;
+        padding: 0;
+        margin: 0;
+      }
+      .page {
+        box-shadow: none;
+        width: 210mm;
+        height: 297mm;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="page">
+    <!-- Cyan Top Header -->
+    <div class="header-block">
+      <h1 class="header-name">石欢欢</h1>
+      <div class="header-intent">求职意向：药物分析研究员 / 理化分析师 / 方法开发与验证研究员</div>
+    </div>
+
+    <!-- Main Content Container -->
+    <div class="content-block">
+      <!-- Left Sidebar -->
+      <div class="sidebar">
+        <!-- Circular Avatar overlapping header -->
+        <div class="avatar-wrap">
+          <img class="avatar-img" src="image.png" alt="石欢欢" />
+        </div>
+
+        <!-- Basic Info Section -->
+        <h2 class="sidebar-title">基本信息</h2>
+        <div class="info-list">
+          <div class="info-item">
+            <svg class="info-icon" viewBox="0 0 24 24"><path d="M19 4h-1V2h-2v2H8V2H6v2H5c-1.11 0-1.99.9-1.99 2L3 20c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 16H5V10h14v10zm0-12H5V6h14v2z"/></svg>
+            <span class="info-label">生日：</span><span class="info-value">1997.06</span>
+          </div>
+          <div class="info-item">
+            <svg class="info-icon" viewBox="0 0 24 24"><path d="M12,2A6,6 0 0,0 6,8C6,10.9 8.07,13.32 10.83,13.88V16H9V18H10.83V22H13.17V18H15V16H13.17V13.88C15.93,13.32 18,10.9 18,8A6,6 0 0,0 12,2M12,11.5A3.5,3.5 0 0,1 8.5,8A3.5,3.5 0 0,1 12,4.5A3.5,3.5 0 0,1 15.5,8A3.5,3.5 0 0,1 12,11.5Z"/></svg>
+            <span class="info-label">性别：</span><span class="info-value">女</span>
+          </div>
+          <div class="info-item">
+            <svg class="info-icon" viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+            <span class="info-label">地址：</span><span class="info-value">江苏省苏州市</span>
+          </div>
+          <div class="info-item">
+            <svg class="info-icon" viewBox="0 0 24 24"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg>
+            <span class="info-label">电话：</span><span class="info-value">13694047063</span>
+          </div>
+          <div class="info-item">
+            <svg class="info-icon" viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+            <span class="info-label">邮箱：</span><span class="info-value">shh19970622@163.com</span>
+          </div>
+        </div>
+
+        <!-- About Me Venn Diagram Section -->
+        <h2 class="sidebar-title">关于我</h2>
+        <div class="venn-container">
+          <div class="bubble bubble-tl">方法<br>验证</div>
+          <div class="bubble bubble-tr">仪器<br>分析</div>
+          <div class="bubble bubble-center">GMP<br>合规</div>
+          <div class="bubble bubble-bl">数据<br>可靠</div>
+          <div class="bubble bubble-br">团队<br>协作</div>
+        </div>
+
+        <!-- Certifications Section -->
+        <h2 class="sidebar-title">所获证书</h2>
+        <ul class="sidebar-list">
+          <li class="sidebar-list-item">大学英语四级 (CET-4)</li>
+          <li class="sidebar-list-item">大学英语六级 (CET-6)</li>
+          <li class="sidebar-list-item">中/英文双语报告撰写能力</li>
+          <li class="sidebar-list-item">高级理化分析与方法验证资质</li>
+        </ul>
+
+        <!-- Hobbies Section -->
+        <h2 class="sidebar-title">兴趣爱好</h2>
+        <div class="hobbies-text">
+          羽毛球 / 徒步 / 阅读 / 电影 / 音乐
+        </div>
+      </div>
+
+      <!-- Right Main Content Column -->
+      <div class="main-content">
+        <!-- Education Section -->
+        <div class="section-header">
+          <div class="section-bullet"></div>
+          <h2 class="section-title">教育背景</h2>
+        </div>
+        <div class="edu-block">
+          <div class="edu-row">
+            <span>2016.09 - 2020.06</span>
+            <span>吉林化工学院</span>
+            <span>药物制剂 (本科)</span>
+          </div>
+          <div class="edu-courses">
+            主修课程：药物分析、药剂学、物理药剂学、药物化学、药理学、药用高分子材料学、有机化学、分析化学、化工原理、仪器分析等。
+          </div>
+        </div>
+
+        <!-- Work Experience Section -->
+        <div class="section-header">
+          <div class="section-bullet"></div>
+          <h2 class="section-title">工作经历</h2>
+        </div>
+
+        <!-- Job 1 -->
+        <div class="job-block">
+          <div class="job-row">
+            <span>2025.07 - 至今</span>
+            <span>理化分析师</span>
+          </div>
+          <div class="job-company">晶云星空制药有限公司</div>
+          <ul class="job-bullets">
+            <li>负责CDMO项目下多个委托开发产品的<strong>分析方法验证与稳定性检测</strong>，确保在紧迫交付周期内高质量完成。</li>
+            <li>严格遵循ChP、GMP规范及公司SOP，独立设计并执行长期、加速及影响因素试验，熟练开展<strong>有关物质/杂质分析、含量及溶出度</strong>等检测工作。</li>
+            <li>独立起草<strong>中英文双语</strong>的方法验证、稳定性及检验报告，负责色谱图谱与原始数据的整理归档，确保数据链条完整且<strong>100%可追溯</strong>。</li>
+            <li>截至目前高效交付了<strong>8个方法验证、1个方法开发及17个稳定性检测项目</strong>，实现<strong>100%一次性通过率</strong>且合规零偏差。</li>
+          </ul>
+        </div>
+
+        <!-- Job 2 -->
+        <div class="job-block">
+          <div class="job-row">
+            <span>2021.11 - 2025.05</span>
+            <span>分析研究员</span>
+          </div>
+          <div class="job-company">江苏诺和必拓新药研发有限公司</div>
+          <ul class="job-bullets">
+            <li>负责新药与仿制药项目<strong>IND注册申报阶段</strong>核心分析方法的开发、全面验证及日常质量检测工作。</li>
+            <li>基于ICH Q2(R1)及ChP规范，独立设计并执行<strong>HPLC、GC分析方法验证</strong>（涵盖专属性、线性、准确度、精密度、稳定性及耐用性等指标）。</li>
+            <li>针对手性杂质及难分离的结构类似物，通过系统调整流动相、色谱柱及洗脱梯度等技术手段，成功<strong>攻克多个高难度分离项目</strong>。</li>
+            <li>熟练操作液相（有关物质、含量、溶出度）、气相（溶剂残留）、水分及紫外分光光度计等分析仪器，完成日常质量控制，并作为核心分析人<strong>起草并整理IND注册申报资料（CTD格式）</strong>。</li>
+          </ul>
+        </div>
+
+        <!-- Job 3 -->
+        <div class="job-block">
+          <div class="job-row">
+            <span>2020.07 - 2021.11</span>
+            <span>供试品配制专员</span>
+          </div>
+          <div class="job-company">河北赛赋医药科有限公司</div>
+          <ul class="job-bullets">
+            <li>在GLP/GMP高合规实验室环境下，负责受试药与中试样品的<strong>浓度控制、均一性验证与日常药品配制</strong>，保证临床前研究数据真实。</li>
+            <li>严格执行SOP规程，熟练利用HPLC与UV进行浓度的定性与定量分析，确保制备过程及实验数据<strong>100%合规可追溯</strong>。</li>
+            <li>负责实验室<strong>20余台分析仪器</strong>（如色谱仪、天平、pH计等）的日常校验与维护，确保仪器的合规运行与日常台账记录。</li>
+            <li>累计完成<strong>300+批次</strong>供试品配制，<strong>制备均一性及合规率达100%</strong>；设备故障率降低30%。</li>
+          </ul>
+        </div>
+
+        <!-- Project Experience Section -->
+        <div class="section-header">
+          <div class="section-bullet"></div>
+          <h2 class="section-title">项目经历</h2>
+        </div>
+
+        <!-- Project 1 -->
+        <div class="project-block">
+          <div class="project-row">
+            <span>CDMO委托开发分析方法验证与稳定性检测项目</span>
+            <span>2025.07 - 至今</span>
+          </div>
+          <div class="project-desc">
+            作为项目核心理化分析人员，负责多款委托药品的质量研究。严格执行ChP/GMP合规标准，累计完成<strong>8个分析方法验证、1个方法开发及17个稳定性检测项目</strong>，成功处理多批次样品的长期及加速检验，实现交付合格率<strong>100%且零偏差</strong>。
+          </div>
+        </div>
+
+        <!-- Project 2 -->
+        <div class="project-block">
+          <div class="project-row">
+            <span>新药与仿制药IND注册申报分析研究项目</span>
+            <span>2021.11 - 2025.05</span>
+          </div>
+          <div class="project-desc">
+            主导新药IND申报中核心分析方法的建立与确认。针对关键杂质和手性异构体，主导开发高分辨率的HPLC/GC检测方法；独立撰写并提交完整<strong>CTD格式的申报资料</strong>，成功支撑项目完成IND申报。
+          </div>
+        </div>
+
+        <!-- Project 3 -->
+        <div class="project-block">
+          <div class="project-row">
+            <span>非临床研究供试品配制与实验室合规保障项目</span>
+            <span>2020.07 - 2021.11</span>
+          </div>
+          <div class="project-desc">
+            负责高合规要求下的制剂均一性把控，累计完成<strong>300余批次</strong>受试物的高精密配制；建立健全了实验室20余台仪器的效期校验和维护日志，将仪器故障率降低30%，保障了GLP实验室的质量审计符合性。
+          </div>
+        </div>
+
+        <!-- Self Evaluation Section -->
+        <div class="section-header">
+          <div class="section-bullet"></div>
+          <h2 class="section-title">自我评价</h2>
+        </div>
+        <div class="eval-text">
+          <div class="eval-para"><strong>经验全面且扎实</strong>：拥有近6年制药分析行业实战经验，涵盖CDMO研发、IND申报、GLP检测等多场景，精通精密仪器操作与分析方法验证。</div>
+          <div class="eval-para"><strong>严格遵循合规标准</strong>：深刻理解中国药典（ChP）、美国药典（USP）及ICH Q2等指南，具备牢固的GMP/GLP合规意识及丰富的数据完整性（Data Integrity）执行经验。</div>
+          <div class="eval-para"><strong>高执行力与解决问题能力</strong>：具备出色的中英文双语报告撰写与CTD申报资料整理能力，抗压性强，擅长攻坚高难度杂质分离，确保项目高效安全交付。</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</body>
+</html>
